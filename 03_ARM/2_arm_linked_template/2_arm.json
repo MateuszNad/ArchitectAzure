@@ -1,0 +1,300 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "adminUserName": {
+            "type": "string",
+            "metadata": {
+                "description": "Nazwa admina"
+            }
+        },
+        "adminPassword": {
+            "type": "securestring",
+            "metadata": {
+                "description": "Haslo dla admina"
+            }
+        }
+    },
+    "variables": {
+        "addressPrefixApp": "10.0.0.0/24",
+        "addressPrefixDB": "10.0.1.0/24",
+        "system": "bpm",
+        "envirnoment": "s"
+    },
+    "resources": [
+        {
+            "name": "[concat(variables('system'),variables('envirnoment'),'vnet','0001')]",
+            "type": "Microsoft.Network/virtualNetworks",
+            "apiVersion": "2018-08-01",
+            "location": "[resourceGroup().location]",
+            "tags": {
+                "displayName": "[concat(variables('system'),variables('envirnoment'),'vnet','0001')]"
+            },
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "10.0.0.0/16"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "[concat(variables('system'),variables('envirnoment'),'subnet','app')]",
+                        "properties": {
+                            "addressPrefix": "[variables('addressPrefixApp')]"
+                        }
+                    },
+                    {
+                        "name": "[concat(variables('system'),variables('envirnoment'),'subnet','db')]",
+                        "properties": {
+                            "addressPrefix": "[variables('addressPrefixDB')]"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "applinkedTemplate",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2018-05-01",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "<tutaj-wkleić-url-do-linked-template>"
+                },
+                "parameters": {
+                    "Name": {
+                        "value": "[concat(variables('system'),variables('envirnoment'),'nsg','app')]"
+                    },
+                    "Location": {
+                        "value": "[resourceGroup().location]"
+                    },
+                    "sourceAddressPrefix": {
+                        "value": "[variables('addressPrefixApp')]"
+                    }
+                }
+            }
+        },
+        {
+            "name": "dblinkedTemplate",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2018-05-01",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "<tutaj-wkleić-url-do-linked-template>"
+                },
+                "parameters": {
+                    "name": {
+                        "value": "[concat(variables('system'),variables('envirnoment'),'nsg','db')]"
+                    },
+                    "location": {
+                        "value": "[resourceGroup().location]"
+                    },
+                    "sourceAddressPrefix": {
+                        "value": "[variables('addressPrefixDB')]"
+                    }
+                }
+            }
+        },
+        {
+            "name": "[concat(variables('system'),variables('envirnoment'),'storage','db')]",
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2015-06-15",
+            "location": "[resourceGroup().location]",
+            "tags": {
+                "displayName": "ubuntuVM1 Storage Account"
+            },
+            "properties": {
+                "accountType": "Standard_LRS"
+            }
+        },
+        {
+            "name": "[concat(variables('system'),variables('envirnoment'),'publicip','db')]",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "apiVersion": "2018-08-01",
+            "location": "[resourceGroup().location]",
+            "tags": {
+                "displayName": "PublicIPAddress"
+            },
+            "properties": {
+                "publicIPAllocationMethod": "Dynamic",
+                "dnsSettings": {
+                    "domainNameLabel": "[toLower('ubuntuVM1')]"
+                }
+            }
+        },
+        {
+            "name": "[concat(variables('system'),variables('envirnoment'),'nic','db')]",
+            "type": "Microsoft.Network/networkInterfaces",
+            "apiVersion": "2018-08-01",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses', concat(variables('system'),variables('envirnoment'),'publicip','db'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks', concat(variables('system'),variables('envirnoment'),'vnet','0001'))]"
+            ],
+            "tags": {
+                "displayName": "ubuntuVM1-NetworkInterface"
+            },
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipConfig1",
+                        "properties": {
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', concat(variables('system'),variables('envirnoment'),'publicip','db'))]"
+                            },
+                            "subnet": {
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', concat(variables('system'),variables('envirnoment'),'vnet','0001'), concat(variables('system'),variables('envirnoment'),'subnet','db'))]"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "[concat(variables('system'),variables('envirnoment'),'vm','db')]",
+            "type": "Microsoft.Compute/virtualMachines",
+            "apiVersion": "2017-03-30",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', concat(variables('system'),variables('envirnoment'),'storage','db'))]",
+                "[resourceId('Microsoft.Network/networkInterfaces', concat(variables('system'),variables('envirnoment'),'nic','db'))]"
+            ],
+            "tags": {
+                "displayName": "bpmpvmdb"
+            },
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "Standard_A1"
+                },
+                "osProfile": {
+                    "computerName": "[concat(variables('system'),variables('envirnoment'),'vm','db')]",
+                    "adminUsername": "[parameters('adminUserName')]",
+                    "adminPassword": "[parameters('adminPassword')]"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "Canonical",
+                        "offer": "UbuntuServer",
+                        "sku": "16.04-LTS",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "name": "[concat(variables('system'),variables('envirnoment'),'disk','db')]",
+                        "caching": "ReadWrite",
+                        "createOption": "FromImage"
+                    }
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(variables('system'),variables('envirnoment'),'nic','db'))]"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "name": "[concat(variables('system'),variables('envirnoment'),'storage','app')]",
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2015-06-15",
+            "location": "[resourceGroup().location]",
+            "tags": {
+                "displayName": "ubuntuVM1 Storage Account"
+            },
+            "properties": {
+                "accountType": "Standard_LRS"
+            }
+        },
+        {
+            "name": "[concat(variables('system'),variables('envirnoment'),'publicip','app')]",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "apiVersion": "2018-08-01",
+            "location": "[resourceGroup().location]",
+            "tags": {
+                "displayName": "PublicIPAddress"
+            },
+            "properties": {
+                "publicIPAllocationMethod": "Dynamic",
+                "dnsSettings": {
+                    "domainNameLabel": "[concat(variables('system'),variables('envirnoment'),'publicip','app')]"
+                }
+            }
+        },
+        {
+            "name": "[concat(variables('system'),variables('envirnoment'),'nic','app')]",
+            "type": "Microsoft.Network/networkInterfaces",
+            "apiVersion": "2018-08-01",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses', concat(variables('system'),variables('envirnoment'),'publicip','app'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks', concat(variables('system'),variables('envirnoment'),'vnet','0001'))]"
+            ],
+            "tags": {
+                "displayName": "[concat(variables('system'),variables('envirnoment'),'nic','app')]"
+            },
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipConfig1",
+                        "properties": {
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', concat(variables('system'),variables('envirnoment'),'publicip','app'))]"
+                            },
+                            "subnet": {
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', concat(variables('system'),variables('envirnoment'),'vnet','0001'), concat(variables('system'),variables('envirnoment'),'subnet','app'))]"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "[concat(variables('system'),variables('envirnoment'),'vm','app')]",
+            "type": "Microsoft.Compute/virtualMachines",
+            "apiVersion": "2017-03-30",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', concat(variables('system'),variables('envirnoment'),'storage','app'))]",
+                "[resourceId('Microsoft.Network/networkInterfaces', concat(variables('system'),variables('envirnoment'),'nic','app'))]"
+            ],
+            "tags": {
+                "displayName": "bpmpvmapp"
+            },
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "Standard_A1"
+                },
+                "osProfile": {
+                    "computerName": "[concat(variables('system'),variables('envirnoment'),'vm','app')]",
+                    "adminUsername": "[parameters('adminUserName')]",
+                    "adminPassword": "[parameters('adminPassword')]"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "Canonical",
+                        "offer": "UbuntuServer",
+                        "sku": "16.04-LTS",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "name": "[concat(variables('system'),variables('envirnoment'),'disk','app')]",
+                        "caching": "ReadWrite",
+                        "createOption": "FromImage"
+                    }
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(variables('system'),variables('envirnoment'),'nic','app'))]"
+                        }
+                    ]
+                }
+            }
+        }
+    ],
+    "outputs": {
+    }
+}

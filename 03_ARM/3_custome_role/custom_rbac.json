@@ -1,0 +1,17 @@
+{
+    "Name": "[CloudDB] Virtual Machine Users",
+    "Id": "db601189-185b-4f49-96bb-508ebd9abfa4",
+    "IsCustom": true,
+    "Description": "Allows start/stop virtual machines and request to support",
+    "Actions": [
+        "Microsoft.Compute/virtualMachines/read",
+        "Microsoft.Compute/virtualMachines/start/action",
+        "Microsoft.Compute/virtualMachines/powerOff/action",
+        "Microsoft.Compute/virtualMachines/deallocate/action",
+        "Microsoft.Support/*"
+    ],
+    "NotActions": [],
+    "AssignableScopes": [
+        "/subscriptions/971ecce3-6ff2-4b42-9ea7-5a219548b9a2"
+    ]
+}
