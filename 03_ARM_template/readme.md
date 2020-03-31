@@ -6,7 +6,7 @@ Jako architekt ustaliłeś kilka pryncypiów projektowych, które powinny być r
 3) Jeśli to konieczne, należy zbudować własny model ról za pomocą RBAC
 4) Docelowo, wszystkie kluczowe ustawienia, tak jak np. nazwy lokalnych administratorów i hasła powinny być pobierane z Azure KeyVault
 
-### Zadanie:
+## Zadanie:
 Zadanie ma 4 etapy, zrób wszystkie 4 by zebrać jak największą liczbę punktów!
 
 - #TYDZIEN3.1 „Zbuduj prostą konwencję nazewniczą dla min. takich zasobów jak Grupa Zasobów, VNET, Maszyn Wirtualna, Dysk, Konta składowania danych. Pamiętaj o ograniczeniach w nazywaniu zasobów, które występują w Azure”
@@ -15,7 +15,7 @@ Zadanie ma 4 etapy, zrób wszystkie 4 by zebrać jak największą liczbę punkt�
 - #TYDZIEN3.4 „Spróbuj na koniec zmodyfikować template tak, by nazwa użytkownika i hasło do każdej maszyny z pkt. 2 było pobierane z KeyVault.„
 
 
-## Linki
+### Linki
 1. https://azurecitadel.com/automation/arm/lab1/
 2. https://docs.microsoft.com/pl-pl/azure/azure-resource-manager/resource-manager-tutorial-create-linked-templates
 3. https://docs.microsoft.com/pl-pl/azure/azure-resource-manager/resource-manager-keyvault-parameter
