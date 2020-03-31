@@ -12,7 +12,7 @@ System, który projektujesz, będzie odwiedzany przez klientów końcowych, a wi
 ## [#TYDZIEN2.1]
 Na bazie poznanych wzorców projektowych wybierz 3, które chciałbyś zastosować wraz z uzasadnieniem przy każdym z nich, dlaczego właśnie ten wzorzec projektowy będzie przydatny i jakie problemy ew. może rozwiązać. Uzasadnienie nie może być długie – przy każdym wzorcu postaraj się nie przekroczyć 5 punktów maksymalnie. Wystarczą mi 3 dobre powody.
 
-## Odpowiedz:
+## Odpowiedź:
 
 ### [Throttling Pattern](https://docs.microsoft.com/en-us/azure/architecture/patterns/throttling)
 - zapewnienie dostępności systemu dla firm zgodnie z SLA
@@ -42,7 +42,7 @@ Usługi: Content Delivery Network
 
 ### [Command and Query Responsibility Segregation (CQRS)](https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs)
   - rozdzielenie operacji przeszukiwania bazy produktów od składowania informacji o zamówieniach
-  - możliwość wykorzystania relacyjnej bazy danych dla operacji zamówień,
+  - możliwość wykorzystania relacyjnej bazy danych dla operacji zamówień (dla zapewnienia transakcyjności)
   - łatwiejsza optymalizacja systemu dla operacji odczytu (częste przeszukiwanie bazy produktów)
 
 \
