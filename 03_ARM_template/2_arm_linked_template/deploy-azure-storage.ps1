@@ -1,21 +1,3 @@
-# Import-Module Az
-# Login-AzAccount
-
-# Get-AzLocation | Where-Object Location -Like *europe*
-
-# creating new resource group
-$ResourceGroupParam = @{
-    Name     = 'rg-bpm-s'
-    Location = 'westeurope'
-    Tag      = @{
-        System = 'bpm'
-        Env    = 'support'
-        wb     = 'mateusznadobnik'
-    }
-}
-($NewRG = New-AzResourceGroup @ResourceGroupParam)
-
-
 # linked template z musi zostać umieszczone w "sieci" aby main template miał do niego dostęp.
 # opcją jest github lub azure storage
 

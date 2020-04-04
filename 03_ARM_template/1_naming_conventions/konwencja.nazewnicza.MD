@@ -14,6 +14,12 @@ Przyjęta konwencja nazewnicza dla zasobów:
 <system><envirnoment><service><number><zaleznosc>
 ```
 
+Konwencja nazwy grupy zasobów:
+```
+rg-<system>-<envirnoment>
+```
+
+
 ## `<system>`
 
 Każdy zasób przypisany jest do konkretnego systemu.
@@ -59,7 +65,12 @@ workflowpsql3
 
 ## `<depends>`
 
+## Inne wymagania
 
+Do każdego zasobu należy dodać tagi:
+- system:
+- srodowisko (env):
+- wb (wlasciciel biznesowy)
 
 ## Linki
 - https://docs.microsoft.com/pl-pl/azure/architecture/best-practices/naming-conventions#use-affixes-to-avoid-ambiguity
