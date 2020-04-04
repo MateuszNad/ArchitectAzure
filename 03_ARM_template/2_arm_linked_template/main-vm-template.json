@@ -1,0 +1,141 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "Envirnoment": {
+           "type": "string",
+           "defaultValue":"test",
+           "allowedValues":[
+               "dev",
+               "test",
+               "support",
+               "prod"
+           ],
+           "metadata": {
+                "description": "description"
+            }
+        },
+        "System": {
+            "type": "string",
+            "metadata": {
+                "description": "Name of system."
+            }
+        },
+        "adminUsername": {
+            "type": "string",
+            "metadata": {
+                "description": "Username for the Virtual Machine."
+            }
+        },
+        "adminPasswordOrKey": {
+            "type": "securestring",
+            "metadata": {
+                "description": "SSH Key or password for the Virtual Machine. SSH key is recommended."
+            }
+        }
+    },
+    "variables": {
+        "fullSystemName":"[concat(parameters('system'),substring(parameters('envirnoment'),0,1))]",
+        "addressPrefix": "10.0.0.0/16",
+        "subnetAddressPrefixApp": "10.0.0.0/24",
+        "subnetAddressPrefixDB": "10.0.1.0/24"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Network/virtualNetworks",
+            "apiVersion": "2019-04-01",
+            "name": "[concat(variables('fullSystemName'),'vnet')]",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "[variables('addressPrefix')]"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "[concat(variables('fullSystemName'),'db')]",
+                        "properties": {
+                            "addressPrefix": "[variables('subnetAddressPrefixDB')]",
+                            "privateEndpointNetworkPolicies": "Enabled",
+                            "privateLinkServiceNetworkPolicies": "Enabled"
+                        }
+                    },
+                    {
+                        "name": "[concat(variables('fullSystemName'),'app')]",
+                        "properties": {
+                            "addressPrefix": "[variables('subnetAddressPrefixApp')]",
+                            "privateEndpointNetworkPolicies": "Enabled",
+                            "privateLinkServiceNetworkPolicies": "Enabled"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "type":"Microsoft.Resources/deployments",
+            "name":"vm-app",
+            "apiVersion":"2019-10-01",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "https://github.com/MateuszNad/ArchitectAzure/blob/master/03_ARM_template/2_arm_linked_template/linked-vm-template.json"
+                },
+                "parameters": {
+                    "System": {
+                        "value": "[parameters('System')]"
+                    },
+                    "Envirnoment": {
+                        "value": "[parameters('Envirnoment')]"
+                    },
+                    "Type": {
+                        "value": "app"
+                    },
+                    "Subnet": {
+                        "value": "[concat(variables('fullSystemName'),'app')]"
+                    },
+                    "adminUsername": {
+                        "value": "[parameters('adminUsername')]"
+                    },
+                    "adminPasswordOrKey": {
+                        "value":"[parameters('adminPasswordOrKey')]"
+                    }
+                }
+            }
+        },
+        {
+            "type":"Microsoft.Resources/deployments",
+            "name":"vm-db",
+            "apiVersion":"2019-10-01",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "https://github.com/MateuszNad/ArchitectAzure/blob/master/03_ARM_template/2_arm_linked_template/linked-vm-template.json"
+                },
+                "parameters": {
+                    "System": {
+                        "value": "[parameters('System')]"
+                    },
+                    "Envirnoment": {
+                        "value": "[parameters('Envirnoment')]"
+                    },
+                    "Type": {
+                        "value": "db"
+                    },
+                    "Subnet": {
+                        "value": "[concat(variables('fullSystemName'),'db')]"
+                    },
+                    "adminUsername": {
+                        "value": "[parameters('adminUsername')]"
+                    },
+                    "adminPasswordOrKey": {
+                        "value":"[parameters('adminPasswordOrKey')]"
+                    }
+                }
+            }
+        }
+    ],
+    "outputs": {
+
+    }
+}
