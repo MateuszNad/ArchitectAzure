@@ -114,7 +114,7 @@
             "location": "[resourceGroup().location]",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/networkSecurityGroups/',concat(variables('fullSystemName'),'nsg',parameters('Type')))]",
-                "[resourceId('Microsoft.Network/virtualNetworks/', parameters('virtualNetworkName'))]",
+                // "[resourceId('Microsoft.Network/virtualNetworks/', parameters('virtualNetworkName'))]",
                 "[resourceId('Microsoft.Network/publicIpAddresses/', concat(variables('fullSystemName'),'pip',parameters('Type')))]"
             ],
             "properties": {
