@@ -202,9 +202,9 @@
             "type": "string",
             "value": "[parameters('adminUsername')]"
         },
-        "hostname": {
+        "publicIP": {
             "type": "string",
-            "value": "[reference(concat(variables('fullSystemName'),'pip',parameters('Type')))]"
+            "value": "[reference(concat(variables('fullSystemName'),'pip',parameters('Type')).publicIpAddress)]"
         }
     }
 }
