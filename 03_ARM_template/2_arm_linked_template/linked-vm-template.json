@@ -204,7 +204,7 @@
         },
         "publicIP": {
             "type": "string",
-            "value": "[reference(concat(variables('fullSystemName'),'pip',parameters('Type')).publicIpAddress)]"
+            "value": "[reference(concat(variables('fullSystemName'),'pip',parameters('Type'))).publicIpAddress]"
         }
     }
 }
