@@ -34,6 +34,12 @@
                 "description": "Subnet"
             }
         },
+        "virtualNetworkName": {
+           "type": "string",
+           "metadata": {
+                "description": "Virtual Network Name"
+            }
+        },
         "adminUsername": {
             "type": "string",
             "metadata": {
@@ -108,7 +114,7 @@
             "location": "[resourceGroup().location]",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/networkSecurityGroups/',concat(variables('fullSystemName'),'nsg',parameters('Type')))]",
-                "[resourceId('Microsoft.Network/virtualNetworks/', concat(variables('fullSystemName'),'vnet'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks/', parameters('virtualNetworkName'))]",
                 "[resourceId('Microsoft.Network/publicIpAddresses/', concat(variables('fullSystemName'),'pip',parameters('Type')))]"
             ],
             "properties": {

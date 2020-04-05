@@ -95,6 +95,9 @@
                     "Type": {
                         "value": "db"
                     },
+                    "virtualNetworkName": {
+                        "value":"[concat(variables('fullSystemName'),'vnet')]"
+                    },
                     "Subnet": {
                         "value": "[concat(variables('fullSystemName'),'db')]"
                     },
@@ -131,6 +134,9 @@
                     },
                     "Type": {
                         "value": "app"
+                    },
+                    "virtualNetworkName": {
+                        "value":"[concat(variables('fullSystemName'),'vnet')]"
                     },
                     "Subnet": {
                         "value": "[concat(variables('fullSystemName'),'app')]"
