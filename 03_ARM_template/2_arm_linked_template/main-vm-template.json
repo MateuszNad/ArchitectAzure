@@ -105,8 +105,8 @@
                     "adminUsername": {
                         "value": "[parameters('adminUsername')]"
                     },
-                    "adminPasswordOrKey": {
-                        "value":"[parameters('adminPasswordOrKey')]"
+                    "adminPassword": {
+                        "value":"[parameters('adminPassword')]"
                     }
                 },
                 "mode": "Incremental"
@@ -146,7 +146,7 @@
                         "value": "[parameters('adminUsername')]"
                     },
                     "adminPassword": {
-                        "value":"[parameters('adminPasswordOrKey')]"
+                        "value":"[parameters('adminPassword')]"
                     }
                 },
                 "mode": "Incremental"

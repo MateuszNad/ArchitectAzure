@@ -204,7 +204,7 @@
         },
         "hostname": {
             "type": "string",
-            "value": "[reference(concat(variables('fullSystemName'),'pip',parameters('Type'))).dnsSettings.fqdn]"
+            "value": "[reference(concat(variables('fullSystemName'),'pip',parameters('Type')))]"
         }
     }
 }
