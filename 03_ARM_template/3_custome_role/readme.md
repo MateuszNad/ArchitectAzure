@@ -15,6 +15,6 @@ Microsoft.Compute/virtualMachines/start/action                   Starts the virt
 Microsoft.Compute/virtualMachines/powerOff/action                Powers off the virtual machine. Note that the virtu...
 Microsoft.Compute/virtualMachines/redeploy/action                Redeploys virtual machine
 Microsoft.Compute/virtualMachines/restart/action                 Restarts the virtual
-...
+
 #>
 ```
