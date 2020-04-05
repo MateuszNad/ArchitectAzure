@@ -27,7 +27,7 @@
                 "description": "Username for the Virtual Machine."
             }
         },
-        "adminPasswordOrKey": {
+        "adminPassword": {
             "type": "securestring",
             "metadata": {
                 "description": "SSH Key or password for the Virtual Machine. SSH key is recommended."
@@ -145,7 +145,7 @@
                     "adminUsername": {
                         "value": "[parameters('adminUsername')]"
                     },
-                    "adminPasswordOrKey": {
+                    "adminPassword": {
                         "value":"[parameters('adminPasswordOrKey')]"
                     }
                 },
