@@ -18,7 +18,7 @@ $ResourceGroupParam = @{
 $DeployParam = @{
     Name                  = 'tydzien3.2'
     ResourceGroupName     = $NewRG.ResourceGroupName
-    TemplateParameterFile = '.\03_ARM_template\2_arm_linked_template\main-vm-template.parameters.json'
+    TemplateParameterFile = '.\03_ARM_template\4_arm_template+key_vault\main-vm-template.parameters.json'
     TemplateFile          = '.\03_ARM_template\2_arm_linked_template\main-vm-template.json'
 }
 New-AzResourceGroupDeployment @DeployParam  -WhatIf:$false

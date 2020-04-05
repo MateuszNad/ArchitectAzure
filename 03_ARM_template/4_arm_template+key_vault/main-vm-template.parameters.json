@@ -1,0 +1,23 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "adminUserName": {
+            "value": "adminbpm"
+        },
+        "adminPassword": {
+            "reference": {
+              "keyVault": {
+              "id": "/subscriptions/971ecce3-6ff2-4b42-9ea7-5a219548b9a2/resourceGroups/rg-keyvault/providers/Microsoft.KeyVault/vaults/itpkeyvault"
+              },
+              "secretName": "adminClouddbPassword"
+            }
+        },
+        "Envirnoment": {
+            "value": "test"
+        },
+        "System": {
+            "value": "bpm"
+        }
+    }
+}

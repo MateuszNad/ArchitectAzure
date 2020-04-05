@@ -77,9 +77,7 @@
             "name":"vmdb",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
-            //"location": "string",
-            //"subscriptionId": "string",
-            //"resourceGroup": "[resourceGroup().name]",
+            "resourceGroup": "[resourceGroup().name]",
             "properties": {
                 "templateLink": {
                 "uri": "https://raw.githubusercontent.com/MateuszNad/ArchitectAzure/master/03_ARM_template/2_arm_linked_template/linked-vm-template.json",
@@ -117,8 +115,6 @@
             "name":"vmpp",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
-            //"location": "string",
-            //"subscriptionId": "string",
             "resourceGroup": "[resourceGroup().name]",
             "properties": {
                 "templateLink": {

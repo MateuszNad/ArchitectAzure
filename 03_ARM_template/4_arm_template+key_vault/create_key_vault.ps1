@@ -1,16 +1,26 @@
 Login-AzAccount
+# Create new resource group
+$ResourceGroupParam = @{
+    Name     = 'rg-keyvault'
+    Location = 'westeurope'
+    Tag      = @{
+        System = 'it'
+        Env    = 'prod'
+        wb     = 'mateusznadobnik'
+    }
+}
+New-AzResourceGroup @ResourceGroupParam
 
-$Location = 'westeurope'
-$ResourceGroupName = 'KeyVaultResource'
-$KeyVaultName = 'CloudDBVault'
+# Create Azure KeyVault
+$KeyVaultParam = @{
+    VaultName                    = 'itpkeyvault'
+    resourceGroupName            = $ResourceGroupParam.Name
+    Location                     = $ResourceGroupParam.Location
+    EnabledForTemplateDeployment = $true
+}
+New-AzKeyVault @KeyVaultParam
 
-New-AzureRmResourceGroup -Name $resourceGroupName -Location $location
-New-AzureRmKeyVault `
-    -VaultName $keyVaultName `
-    -resourceGroupName $resourceGroupName `
-    -Location $location `
-    -EnabledForTemplateDeployment
-
+# Add new secret
 $secretvalue = Read-Host -AsSecureString -Prompt 'Password'
-$secret = Set-AzureKeyVaultSecret -VaultName $keyVaultName -Name 'CloudPassword' -SecretValue $secretvalue
+$secret = Set-AzKeyVaultSecret -VaultName $KeyVaultParam.VaultName -Name 'adminUsername' -SecretValue $secretvalue
 $secret
