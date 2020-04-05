@@ -71,70 +71,81 @@
                     }
                 ]
             }
-        }
-        // ,
-        // {
-        //     "type":"Microsoft.Resources/deployments",
-        //     "name":"vm-app",
-        //     "apiVersion":"2019-10-01",
-        //     "properties": {
-        //         "mode": "Incremental",
-        //         "templateLink": {
-        //             "uri": "https://github.com/MateuszNad/ArchitectAzure/blob/master/03_ARM_template/2_arm_linked_template/linked-vm-template.json"
-        //         },
-        //         "parameters": {
-        //             "System": {
-        //                 "value": "[parameters('System')]"
-        //             },
-        //             "Envirnoment": {
-        //                 "value": "[parameters('Envirnoment')]"
-        //             },
-        //             "Type": {
-        //                 "value": "app"
-        //             },
-        //             "Subnet": {
-        //                 "value": "[concat(variables('fullSystemName'),'app')]"
-        //             },
-        //             "adminUsername": {
-        //                 "value": "[parameters('adminUsername')]"
-        //             },
-        //             "adminPasswordOrKey": {
-        //                 "value":"[parameters('adminPasswordOrKey')]"
-        //             }
-        //         }
-        //     }
-        // },
-        // {
-        //     "type":"Microsoft.Resources/deployments",
-        //     "name":"vm-db",
-        //     "apiVersion":"2019-10-01",
-        //     "properties": {
-        //         "mode": "Incremental",
-        //         "templateLink": {
-        //             "uri": "https://github.com/MateuszNad/ArchitectAzure/blob/master/03_ARM_template/2_arm_linked_template/linked-vm-template.json"
-        //         },
-        //         "parameters": {
-        //             "System": {
-        //                 "value": "[parameters('System')]"
-        //             },
-        //             "Envirnoment": {
-        //                 "value": "[parameters('Envirnoment')]"
-        //             },
-        //             "Type": {
-        //                 "value": "db"
-        //             },
-        //             "Subnet": {
-        //                 "value": "[concat(variables('fullSystemName'),'db')]"
-        //             },
-        //             "adminUsername": {
-        //                 "value": "[parameters('adminUsername')]"
-        //             },
-        //             "adminPasswordOrKey": {
-        //                 "value":"[parameters('adminPasswordOrKey')]"
-        //             }
-        //         }
-        //     }
-        // }
+        },
+        {
+            "name":"vmdb",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            //"location": "string",
+            //"subscriptionId": "string",
+            //"resourceGroup": "[resourceGroup().name]",
+            "properties": {
+                "templateLink": {
+                "uri": "https://raw.githubusercontent.com/MateuszNad/ArchitectAzure/master/03_ARM_template/2_arm_linked_template/linked-vm-template.json",
+                "contentVersion": "1.0.0.0"
+                },
+                "parameters":
+                {
+                    "System": {
+                        "value": "[parameters('System')]"
+                    },
+                    "Envirnoment": {
+                        "value": "[parameters('Envirnoment')]"
+                    },
+                    "Type": {
+                        "value": "db"
+                    },
+                    "Subnet": {
+                        "value": "[concat(variables('fullSystemName'),'db')]"
+                    },
+                    "adminUsername": {
+                        "value": "[parameters('adminUsername')]"
+                    },
+                    "adminPasswordOrKey": {
+                        "value":"[parameters('adminPasswordOrKey')]"
+                    }
+                },
+                "mode": "Incremental"
+            },
+            "tags": {}
+            },
+            {
+            "name":"vmpp",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            //"location": "string",
+            //"subscriptionId": "string",
+            "resourceGroup": "[resourceGroup().name]",
+            "properties": {
+                "templateLink": {
+                "uri": "https://raw.githubusercontent.com/MateuszNad/ArchitectAzure/master/03_ARM_template/2_arm_linked_template/linked-vm-template.json",
+                "contentVersion": "1.0.0.0"
+                },
+                "parameters":
+                {
+                    "System": {
+                        "value": "[parameters('System')]"
+                    },
+                    "Envirnoment": {
+                        "value": "[parameters('Envirnoment')]"
+                    },
+                    "Type": {
+                        "value": "app"
+                    },
+                    "Subnet": {
+                        "value": "[concat(variables('fullSystemName'),'app')]"
+                    },
+                    "adminUsername": {
+                        "value": "[parameters('adminUsername')]"
+                    },
+                    "adminPasswordOrKey": {
+                        "value":"[parameters('adminPasswordOrKey')]"
+                    }
+                },
+                "mode": "Incremental"
+            },
+            "tags": {}
+            }
     ],
     "outputs": {
 
