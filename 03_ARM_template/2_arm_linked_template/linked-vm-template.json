@@ -228,10 +228,6 @@
         "hostname": {
             "type": "string",
             "value": "[reference(concat(variables('fullSystemName'),'pip',parameters('Type'))).dnsSettings.fqdn]"
-        },
-        "sshCommand": {
-            "type": "string",
-            "value": "[concat('ssh ', parameters('adminUsername'), '@', reference(concat(variables('fullSystemName'),'pip',parameters('Type'))).dnsSettings.fqdn)]"
         }
     }
 }

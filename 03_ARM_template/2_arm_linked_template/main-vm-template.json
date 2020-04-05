@@ -100,7 +100,7 @@
                         "value": "[concat(variables('fullSystemName'),'vnet')]"
                     },
                     "Subnet": {
-                        "value": "[concat(variables('fullSystemName'),'db')]"
+                        "value": "[concat(variables('fullSystemName'),'subnet','db')]"
                     },
                     "adminUsername": {
                         "value": "[parameters('adminUsername')]"
@@ -137,10 +137,10 @@
                         "value": "app"
                     },
                     "virtualNetworkName": {
-                        "value":"[reference(concat(variables('fullSystemName'),'vnet'))]"
+                        "value": "[concat(variables('fullSystemName'),'vnet')]"
                     },
                     "Subnet": {
-                        "value": "[reference(concat(variables('fullSystemName'),'app'))]"
+                        "value": "[concat(variables('fullSystemName'),'subnet','app')]"
                     },
                     "adminUsername": {
                         "value": "[parameters('adminUsername')]"
