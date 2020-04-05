@@ -97,50 +97,10 @@
                         "value": "db"
                     },
                     "virtualNetworkName": {
-                        "value": "[reference(concat(variables('fullSystemName'),'vnet').propertyPath)]"
+                        "value": "[reference(concat(variables('fullSystemName'),'vnet'))]"
                     },
                     "Subnet": {
-                        "value": "[reference(concat(variables('fullSystemName'),'db').propertyPath)]"
-                    },
-                    "adminUsername": {
-                        "value": "[parameters('adminUsername')]"
-                    },
-                    "adminPasswordOrKey": {
-                        "value":"[parameters('adminPasswordOrKey')]"
-                    }
-                },
-                "mode": "Incremental"
-            },
-            "tags": {}
-            },
-            {
-            "name":"vmpp",
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2019-10-01",
-            //"location": "string",
-            //"subscriptionId": "string",
-            "resourceGroup": "[resourceGroup().name]",
-            "properties": {
-                "templateLink": {
-                "uri": "https://raw.githubusercontent.com/MateuszNad/ArchitectAzure/master/03_ARM_template/2_arm_linked_template/linked-vm-template.json",
-                "contentVersion": "1.0.0.0"
-                },
-                "parameters":
-                {
-                    "System": {
-                        "value": "[parameters('System')]"
-                    },
-                    "Envirnoment": {
-                        "value": "[parameters('Envirnoment')]"
-                    },
-                    "Type": {
-                        "value": "app"
-                    },
-                    "virtualNetworkName": {
-                        "value":"[reference(concat(variables('fullSystemName'),'vnet').propertyPath)] "
-                    },
-                    "Subnet": {
-                        "value": "[reference(concat(variables('fullSystemName'),'app').propertyPath)]"
+                        "value": "[reference(concat(variables('fullSystemName'),'db'))]"
                     },
                     "adminUsername": {
                         "value": "[parameters('adminUsername')]"
@@ -153,6 +113,46 @@
             },
             "tags": {}
             }
+            // ,{
+            // "name":"vmpp",
+            // "type": "Microsoft.Resources/deployments",
+            // "apiVersion": "2019-10-01",
+            // //"location": "string",
+            // //"subscriptionId": "string",
+            // "resourceGroup": "[resourceGroup().name]",
+            // "properties": {
+            //     "templateLink": {
+            //     "uri": "https://raw.githubusercontent.com/MateuszNad/ArchitectAzure/master/03_ARM_template/2_arm_linked_template/linked-vm-template.json",
+            //     "contentVersion": "1.0.0.0"
+            //     },
+            //     "parameters":
+            //     {
+            //         "System": {
+            //             "value": "[parameters('System')]"
+            //         },
+            //         "Envirnoment": {
+            //             "value": "[parameters('Envirnoment')]"
+            //         },
+            //         "Type": {
+            //             "value": "app"
+            //         },
+            //         "virtualNetworkName": {
+            //             "value":"[reference(concat(variables('fullSystemName'),'vnet'))]"
+            //         },
+            //         "Subnet": {
+            //             "value": "[reference(concat(variables('fullSystemName'),'app'))]"
+            //         },
+            //         "adminUsername": {
+            //             "value": "[parameters('adminUsername')]"
+            //         },
+            //         "adminPasswordOrKey": {
+            //             "value":"[parameters('adminPasswordOrKey')]"
+            //         }
+            //     },
+            //     "mode": "Incremental"
+            // },
+            // "tags": {}
+            // }
     ],
     "outputs": {
 
