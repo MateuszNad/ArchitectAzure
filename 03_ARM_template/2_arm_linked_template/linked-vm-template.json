@@ -34,12 +34,12 @@
                 "description": "Subnet"
             }
         },
-        "virtualNetworkName": {
-           "type": "string",
-           "metadata": {
-                "description": "Virtual Network Name"
-            }
-        },
+        // "virtualNetworkName": {
+        //    "type": "string",
+        //    "metadata": {
+        //         "description": "Virtual Network Name"
+        //     }
+        // },
         "adminUsername": {
             "type": "string",
             "metadata": {
