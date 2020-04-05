@@ -1,4 +1,10 @@
-# Azure Key Vault + ARM template
+# TYDZIEN 3.
+
+## Zadanie 4 - Azure Key Vault + ARM template
+
+Spróbuj na koniec zmodyfikować template tak, by nazwa użytkownika i hasło do każdej maszyny z pkt. 2 było pobierane z KeyVault.
+
+## Notatki
 
 > W celu uniknięcia błędu należy zezwolić na Azure Resource Manager for template deployment
 
