@@ -71,7 +71,8 @@
                     }
                 ]
             }
-        },
+         }
+        ,
         {
             "name":"vmdb",
             "type": "Microsoft.Resources/deployments",
@@ -95,11 +96,11 @@
                     "Type": {
                         "value": "db"
                     },
-                    // "virtualNetworkName": {
-                    //     "value":"[concat(variables('fullSystemName'),'vnet')]"
-                    // },
+                    "virtualNetworkName": {
+                        "value": "[reference(concat(variables('fullSystemName'),'vnet').propertyPath)]"
+                    },
                     "Subnet": {
-                        "value": "[concat(variables('fullSystemName'),'db')]"
+                        "value": "[reference(concat(variables('fullSystemName'),'db').propertyPath)]"
                     },
                     "adminUsername": {
                         "value": "[parameters('adminUsername')]"
@@ -135,11 +136,11 @@
                     "Type": {
                         "value": "app"
                     },
-                    // "virtualNetworkName": {
-                    //     "value":"[concat(variables('fullSystemName'),'vnet')]"
-                    // },
+                    "virtualNetworkName": {
+                        "value":"[reference(concat(variables('fullSystemName'),'vnet').propertyPath)] "
+                    },
                     "Subnet": {
-                        "value": "[concat(variables('fullSystemName'),'app')]"
+                        "value": "[reference(concat(variables('fullSystemName'),'app').propertyPath)]"
                     },
                     "adminUsername": {
                         "value": "[parameters('adminUsername')]"
