@@ -58,26 +58,10 @@ VMSS nie są często używane w projektach. W ramach zadania nr. 2 napisz mi pro
 
 Zastosowanie [Virtual Machine Scale Set](https://azure.microsoft.com/en-us/services/virtual-machine-scale-sets/) widziałbym dla warstwy web aplikacji, jeśli hostowana aplikacja nie przetrzymuję stanu sesji użytkownika.
 
-Utworzenie VMSS za pomocą Azure CLI
+Utworzenie VMSS za pomocą PowerShell (zamiast Azure CLI)
 
 ```powershell
-az group create --name vmss-temporary --location westeurop
 
-# create Azure Virtual Machine Scale Set
-az vmss create \
-    --resource-group vmss-temporary \
-    --name vmss-scaleset \
-    --image Win2016Datacenter \
-    --upgrade-policy-mode Automatic \
-    --admin-username useradmin
-
-az vmss extension set \
-  --publisher Microsoft.Azure.Extensions \
-  --version 2.0 \
-  --name CustomScript \
-  --resource-group vmss-temporary  \
-  --vmss-name vmss-scaleset \
-  --settings '{"fileUris":[""],"commandToExecute":"./vmss-deploy-web.ps1"}'
 ```
 
 Linki:

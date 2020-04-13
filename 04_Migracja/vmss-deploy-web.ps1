@@ -12,4 +12,4 @@ alert(nametop.location.host);
 </script>
 <p>$Build</p>
 "
-Set-Content -Value $Contnet -Path 'C:\inetpub\wwwroot\index.htm'
+Set-Content -Value $Contnet -Path 'C:\inetpub\wwwroot\Default.htm'
