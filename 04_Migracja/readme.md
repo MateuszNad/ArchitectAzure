@@ -146,13 +146,15 @@ $UpdateSettings = @{
 
 $VmScaleSet = Get-AzVmss -ResourceGroupName 'webapp-rg2' -VMScaleSetName 'webapp-vmss'
 $VMScaleSet.VirtualMachineProfile.ExtensionProfile.Extensions[0].Settings = $UpdateSettings
-$VMScaleSet.VirtualMachineProfile.ExtensionProfile.Extensions[0].Settings | ConvertTo-Json
 
 Update-AzVmss -ResourceGroupName 'webapp-rg2' -VirtualMachineScaleSet $VMScaleSet -VMScaleSetName 'webapp-vmss'
 ```
+![](deploy-2.jpg)
+
+Usuniecie grupy zasobów
 
 ```ps
-Remove-AzResourceGroup -Name 'webapp-rg' -Force
+Remove-AzResourceGroup -Name 'webapp-rg2' -Force
 ```
 
 Linki:
