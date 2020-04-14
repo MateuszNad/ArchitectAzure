@@ -141,11 +141,12 @@ Aktualizacja VMSS poprzez Custom Script Extension
 ```powershell
 $UpdateSettings = @{
     "fileUris"         = (, "https://raw.githubusercontent.com/MateuszNad/ArchitectAzure/master/04_Migracja/vmss-deploy-web.ps1");
-    "commandToExecute" = "powershell -ExecutionPolicy Unrestricted -File vmss-deploy-web.ps1 -Build ''0.0.2"
+    "commandToExecute" = "powershell -ExecutionPolicy Unrestricted -File vmss-deploy-web.ps1"
 }
 
 $VmScaleSet = Get-AzVmss -ResourceGroupName 'webapp-rg2' -VMScaleSetName 'webapp-vmss'
 $VMScaleSet.VirtualMachineProfile.ExtensionProfile.Extensions[0].Settings = $UpdateSettings
+$VMScaleSet.VirtualMachineProfile.ExtensionProfile.Extensions[0].Settings | ConvertTo-Json
 
 Update-AzVmss -ResourceGroupName 'webapp-rg2' -VirtualMachineScaleSet $VMScaleSet -VMScaleSetName 'webapp-vmss'
 ```
