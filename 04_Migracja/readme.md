@@ -36,7 +36,8 @@ W pierwszej kolejności migracją Lift&Shift zostałbym objęte:
 - niekrytyczne systemu produkcyjne (uwzględniając zależności)
 - krytyczne systemu produkcyjne
 
-> ⚠️ Decyzja o migracji środowisk produkcyjnych musiałby być poprzedzona poprawnym działaniem przez 2-3 miesiące środowisk testowych.
+> ⚠️ Warunkiem podjęcia decyzji o migracji środowiska produkcyjnego byłoby poprawne działanie środowisk testowych przez np. 2-3 miesiące.
+
 
 Sposoby migracji:
    - oszacowanie gotowości, wielkości, kosztów oraz automatyczna migracja za pomocą [Azure Migration](https://azure.microsoft.com/en-us/services/azure-migrate/)
