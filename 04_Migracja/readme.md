@@ -132,11 +132,11 @@ Set-AzVirtualNetwork -VirtualNetwork $vnet
 Start-Process "http://$((Get-AzPublicIpAddress -ResourceGroupName $ResourceGroup.ResourceGroupName).IpAddress)"
 ```
 
-Efekt wdrożenia
+### Efekt wdrożenia
 
-![](deploy-1.jpg)
+![](deploy-1.JPG)
 
-Aktualizacja VMSS poprzez Custom Script Extension
+### Aktualizacja VMSS poprzez Custom Script Extension
 
 ```powershell
 $UpdateSettings = @{
@@ -157,6 +157,7 @@ Usuniecie grupy zasobów
 Remove-AzResourceGroup -Name 'webapp-rg2' -Force
 ```
 
-Linki:
+
+## Dodatkowe linki:
 
 https://medium.com/microsoftazure/updating-azure-vm-scale-set-without-downtime-with-rolling-updates-734dcb540d6b
