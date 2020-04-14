@@ -1,8 +1,14 @@
+param(
+    [string]$Build
+)
 # add IIS
 Add-WindowsFeature Web-Server
 
 # create content
-$Build = '0.0.1'
+if (-not $Build)
+{
+    $Build = '0.0.1'
+}
 $Contnet = "<h1>VMSS Website</h1>
 <p>$env:COMPUTERNAME</p>
 <script language=`javaScript`>
