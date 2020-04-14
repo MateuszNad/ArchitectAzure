@@ -1,5 +1,5 @@
 # konfiguracja VMSS z wersją '0.0.1'
-$Build = '0.0.3'
+$Build = '0.0.2'
 
 # add IIS
 Add-WindowsFeature Web-Server

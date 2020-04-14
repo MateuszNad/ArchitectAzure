@@ -138,6 +138,8 @@ Start-Process "http://$((Get-AzPublicIpAddress -ResourceGroupName $ResourceGroup
 
 ### Aktualizacja VMSS poprzez Custom Script Extension
 
+Zmiana w pliku [vmss-deyploy-web.ps1](.\vmss-deploy-web.ps1) z `$Build = '0.0.1'` na `$Build = '0.0.2'` i aktualizacja Virtual Machine Scale Set.
+
 ```powershell
 $UpdateSettings = @{
     "fileUris"         = (, "https://raw.githubusercontent.com/MateuszNad/ArchitectAzure/master/04_Migracja/vmss-deploy-web.ps1");
