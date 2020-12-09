@@ -1,0 +1,74 @@
+{
+ "properties": {
+  "displayName": "my convension name",
+  "policyType": "Custom",
+  "mode": "All",
+  "metadata": {
+   "createdBy": "8c1c39ce-3294-43f0-b186-000fc7e44f4d",
+   "createdOn": "2020-12-08T16:05:06.9407595Z",
+   "updatedBy": "8c1c39ce-3294-43f0-b186-000fc7e44f4d",
+   "updatedOn": "2020-12-08T19:28:31.4472589Z"
+  },
+  "parameters": {
+   "resourceType": {
+    "type": "String",
+    "metadata": {
+     "displayName": "Resource type",
+     "description": "Resource type to enforce naming pattern.",
+     "strongType": "resourceTypes"
+    }
+   },
+   "resourcePrefix": {
+    "type": "String",
+    "metadata": {
+     "displayName": "Resource type abbreviation",
+     "description": "A short name for Azure resource type to use in resource names"
+    }
+   }
+  },
+  "policyRule": {
+   "if": {
+    "allOf": [
+     {
+      "field": "type",
+      "equals": "[parameters('resourceType')]"
+     },
+     {
+      "anyOf": [
+       {
+        "field": "name",
+        "notLike": "[concat(parameters('resourcePrefix'),'*')]"
+       },
+       {
+        "allOf": [
+         {
+          "field": "name",
+          "notContains": "dev1"
+         },
+         {
+          "field": "name",
+          "notContains": "prod"
+         },
+         {
+          "field": "name",
+          "notContains": "sup"
+         },
+         {
+          "field": "name",
+          "notContains": "test"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "then": {
+    "effect": "deny"
+   }
+  }
+ },
+ "id": "/subscriptions/971ecce3-6ff2-4b42-9ea7-5a219548b9a2/providers/Microsoft.Authorization/policyDefinitions/440ede8e-f0fc-46ff-a0ac-22a1eddef3f0",
+ "type": "Microsoft.Authorization/policyDefinitions",
+ "name": "440ede8e-f0fc-46ff-a0ac-22a1eddef3f0"
+}

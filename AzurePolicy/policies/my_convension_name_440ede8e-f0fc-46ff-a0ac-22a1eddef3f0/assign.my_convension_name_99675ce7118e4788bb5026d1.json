@@ -1,0 +1,34 @@
+{
+ "sku": {
+  "name": "A0",
+  "tier": "Free"
+ },
+ "properties": {
+  "displayName": "my convension name",
+  "policyDefinitionId": "/subscriptions/971ecce3-6ff2-4b42-9ea7-5a219548b9a2/providers/Microsoft.Authorization/policyDefinitions/440ede8e-f0fc-46ff-a0ac-22a1eddef3f0",
+  "scope": "/subscriptions/971ecce3-6ff2-4b42-9ea7-5a219548b9a2",
+  "notScopes": [],
+  "parameters": {
+   "resourceType": {
+    "value": "microsoft.automation/automationaccounts"
+   },
+   "resourcePrefix": {
+    "value": "aa-"
+   }
+  },
+  "metadata": {
+   "assignedBy": "69f47f4c-d38c-476b-8407-cca0feaec86d c5daea45-ea6d-4dc5-8d2a-63d97f05db55",
+   "parameterScopes": {
+    "resourceType": "/subscriptions/971ecce3-6ff2-4b42-9ea7-5a219548b9a2"
+   },
+   "createdBy": "8c1c39ce-3294-43f0-b186-000fc7e44f4d",
+   "createdOn": "2020-12-08T16:05:38.0626719Z",
+   "updatedBy": null,
+   "updatedOn": null
+  },
+  "enforcementMode": "Default"
+ },
+ "id": "/subscriptions/971ecce3-6ff2-4b42-9ea7-5a219548b9a2/providers/Microsoft.Authorization/policyAssignments/99675ce7118e4788bb5026d1",
+ "type": "Microsoft.Authorization/policyAssignments",
+ "name": "99675ce7118e4788bb5026d1"
+}
